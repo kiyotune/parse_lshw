@@ -53,6 +53,7 @@ sub parse{
 		delete($_->{configuration});
 		delete($_->{children});
 		delete($_->{claimed});
+		delete($_->{handle});
 	} @devices;	
 	foreach my $dev (grep {$_->{class} eq 'memory' && $_->{id} eq 'bank'} @devices){
 		if($dev->{description}=~/\[empty\]/){
@@ -72,7 +73,9 @@ sub get_devices {
 	my $parent = shift;
 	my $devices = shift;
 	my @includes = (
+		# id, class
 		["firmware", "memory"],
+		["core", "bus"],
 		["cpu", "processor"],
 		["display", "display"],
 		["memory", "memory"],
