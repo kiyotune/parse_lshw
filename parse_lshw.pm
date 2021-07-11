@@ -54,6 +54,13 @@ sub parse{
 		delete($_->{children});
 		delete($_->{claimed});
 	} @devices;	
+	foreach my $dev (grep {$_->{class} eq 'memory' && $_->{id} eq 'bank'} @devices){
+		if($dev->{description}=~/\[empty\]/){
+			delete($dev->{serial});
+			delete($dev->{vendor});
+			delete($dev->{product});
+		}
+	}
 
 	return $self->{data};
 }
@@ -77,14 +84,13 @@ sub get_devices {
 	if(grep {$parent->{id}=~/^$_->[0]/ && $parent->{class}=~/^$_->[1]/} @includes){
 		# id:no 
 		my ($id, $no) = split(/:/, $parent->{id});
-		if(!$no){
-			my @items = grep {$_->{class} eq $parent->{class} && $_->{id} eq $id} @{$devices};
-			if($#items >= 0){
-				@items = sort {$b->{no} <=> $a->{no}} @items;
-				$no = $items[0]->{no} + 1;
-			}else{
-				$no = 0;
-			}
+		# re-numbering: no
+		my @items = grep {$_->{class} eq $parent->{class} && $_->{id} eq $id} @{$devices};
+		if($#items >= 0){
+			@items = sort {$b->{no} <=> $a->{no}} @items;
+			$no = $items[0]->{no} + 1;
+		}else{
+			$no = 0;
 		}
 		$parent->{id} = $id;
 		$parent->{no} = $no;
