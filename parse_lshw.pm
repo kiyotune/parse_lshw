@@ -73,10 +73,12 @@ sub get_devices {
 	my $devices = shift;
 	my @includes = (
 		["firmware", "memory"],
-		["cpu:", "processor"],
+		["cpu", "processor"],
 		["display", "display"],
-		["bank:", "memory"],
-		["disk:", "disk"],
+		["memory", "memory"],
+		["bank", "memory"],
+		["disk", "disk"],
+		["volume", "volume"],
 		["network", "network"],
 	);
 
