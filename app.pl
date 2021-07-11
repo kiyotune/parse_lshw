@@ -9,7 +9,7 @@ use parse_lshw;
 use Data::Dumper;
 
 # create object from original filename
-#system("sudo lshw -json > ./lshw.json");
+system("sudo lshw -json > ./lshw.json");
 my $lshw = new parse_lshw("./lshw.json");
 
 ## parse json file to hash-data
