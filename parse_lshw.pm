@@ -62,7 +62,7 @@ sub parse{
 			delete($dev->{product});
 		}
 	}
-	foreach my $dev (grep {$_->{class} eq 'volume' && $_->{id} eq 'volume'} @devices){
+	foreach my $dev (grep {$_->{class}=~/volume|disk/ && $_->{id}=~/volume|disk/} @devices){
 		if(ref($dev->{logicalname}) eq 'ARRAY'){
 			$dev->{logicalname} = "[".join(',', @{$dev->{logicalname}})."]";
 		}
