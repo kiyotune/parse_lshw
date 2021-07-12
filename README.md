@@ -22,7 +22,7 @@ $ ./app.pl
 ### ```new```
  create class instance
 ### ```parse```
- parse and return hash object
+ parse and return hash-reference
 ### ```_to_json```
  output as json formatting
 ### ```_to_tsv```
