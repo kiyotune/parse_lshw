@@ -62,6 +62,14 @@ sub parse{
 			delete($dev->{product});
 		}
 	}
+	foreach my $dev (grep {$_->{class} eq 'volume' && $_->{id} eq 'volume'} @devices){
+		if(ref($dev->{logicalname}) eq 'ARRAY'){
+			$dev->{logicalname} = "[".join(',', @{$dev->{logicalname}})."]";
+		}
+	}
+
+	# sort
+	@devices = sort {$a->{class} cmp $b->{class} || $a->{id} cmp $b->{id} || $a->{no} cmp $b->{no}} @devices;
 
 	return $self->{data};
 }
