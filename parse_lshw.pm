@@ -39,6 +39,10 @@ sub parse{
 		$json_text =~ s/^\s+|\s+\n$//g;
 
 		my $json = decode_json($json_text) or die("[error] cannot open file - $self->{input}");
+		if(ref($json) eq 'ARRAY'){
+			#for ubuntu
+			$json = $json->[0];
+		}
 		$self->{data}->{$json->{id}}->{product} = $json->{product};	
 		$self->{data}->{$json->{id}}->{vendor} = $json->{vendor};	
 		$self->{data}->{$json->{id}}->{serial} = $json->{serial};	
